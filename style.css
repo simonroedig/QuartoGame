@@ -1,0 +1,912 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+}
+
+@media (min-width: 200px) {
+    #switch {
+        position: relative;
+        display: inline-block;
+        width: 20px;
+        height: 8px;
+    }
+
+    #switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 6px;
+        width: 6px;
+        left: 2px;
+        bottom: 1px;
+        background-color: #1a1a1a;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #1DD7EE;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(10px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 17px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+    #aiWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        z-index: 10;
+        position: absolute;
+        top: 5px;
+        right: 0;
+        margin-right: 2vw;
+    }
+
+    #aiButton {
+        background-color: transparent;
+        width: 80px;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 400;
+        font-size: 8px;
+        border: none;
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+    body {
+        width: 100vw;
+        height: 100vh;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #1a1a1a;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    #gameWrapper {
+        width: 100vw;
+        height: 100vh;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column-reverse;
+    }
+    #quartoButton {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 400;
+        font-size: 10px;
+        background-color: #1a1a1a;
+        border: none;
+        color: white;
+        padding: 0 0 10px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+    #startButton {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 600;
+        font-size: 8px;
+        background-color: green;
+        border: none;
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+    }
+    #endButton {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 600;
+        font-size: 10px;
+        background-color: #37322e;
+        border: none;
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+    }
+    #footer {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 300;
+        font-size: 10px;
+        background-color: #1a1a1a;
+        border: none;
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+    #stoneField {
+        transform: rotate(-45deg);
+        width: 170px;
+        height: 170px;
+        background-color: #37322e;
+        border-radius: 100%;
+        display: inline-grid;
+        grid-template-columns: repeat(4, 0fr);
+        grid-template-rows: repeat(4, 0fr);
+        gap: 10px;
+        justify-content: center;
+        align-content: center;
+        margin: 2%;
+    }
+    .stone {
+        width: 17px;
+        height: 17px;
+        transform: rotate(45deg);
+    }
+    #nextStoneField {
+        transform: rotate(-45deg);
+        background-color: #37322e;
+        width: 30px;
+        height: 30px;
+
+        border-radius: 100%;
+        margin: 2%;
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #playField {
+        transform: rotate(-45deg);
+        width: 190px;
+        height: 190px;
+        background-color: #37322e;
+        border-radius: 100%;
+        border: 2px solid #e5bb81;
+        display: inline-grid;
+        grid-template-columns: repeat(4, 0fr);
+        grid-template-rows: repeat(4, 0fr);
+        gap: 4px;
+        justify-content: center;
+        align-content: center;
+        margin: 2%;
+    }
+    .circle {
+        width: 27px;
+        height: 27px;
+        border: 2px solid #e5bb81;
+        border-radius: 100%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /*FOR DRAG AND DROP*/
+    .cursorPointer {
+        cursor: grabbing;
+    }
+    .draggedOver {
+        border: 25px dotted #e5bb81;
+    }
+    .draggedOverNextStoneField {
+        box-shadow: 0px 0px 0px 2px #e5bb81;
+        transition: box-shadow 0.2s;
+    }
+    .quartoGreen {
+        border: 2px solid #c065c0;
+    }
+}
+@media (min-width: 300px) {
+    #switch {
+        position: relative;
+        display: inline-block;
+        width: 20px;
+        height: 8px;
+    }
+
+    #switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 6px;
+        width: 6px;
+        left: 2px;
+        bottom: 1px;
+        background-color: #1a1a1a;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #1DD7EE;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(10px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 17px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+    #aiWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        z-index: 10;
+        position: absolute;
+        top: 3px;
+        right: 0;
+        margin-right: 2vw;
+    }
+
+    #aiButton {
+        background-color: transparent;
+        width: 80px;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 400;
+        font-size: 8px;
+        border: none;
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+    body {
+        width: 100vw;
+        height: 100vh;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #1a1a1a;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    #gameWrapper {
+        width: 100vw;
+        height: 100vh;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column-reverse;
+    }
+    #quartoButton {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 400;
+        font-size: 17px;
+        background-color: #1a1a1a;
+        border: none;
+        color: white;
+        padding: 7px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+    #startButton {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 600;
+        font-size: 10px;
+        background-color: green;
+        border: none;
+        color: white;
+        padding: 7px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+    }
+    #endButton {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 600;
+        font-size: 10px;
+        background-color: #37322e;
+        border: none;
+        color: white;
+        padding: 7px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+    }
+    #footer {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 300;
+        font-size: 10px;
+        background-color: #1a1a1a;
+        border: none;
+        color: white;
+        padding: 7px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+    #stoneField {
+        transform: rotate(-45deg);
+        width: 180px;
+        height: 180px;
+        background-color: #37322e;
+        border-radius: 100%;
+        display: inline-grid;
+        grid-template-columns: repeat(4, 0fr);
+        grid-template-rows: repeat(4, 0fr);
+        gap: 10px;
+        justify-content: center;
+        align-content: center;
+        margin: 2%;
+    }
+    .stone {
+        width: 19px;
+        height: 19px;
+        transform: rotate(45deg);
+    }
+    #nextStoneField {
+        transform: rotate(-45deg);
+        background-color: #37322e;
+        width: 30px;
+        height: 30px;
+
+        border-radius: 100%;
+        margin: 2%;
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #playField {
+        transform: rotate(-45deg);
+        width: 230px;
+        height: 230px;
+        background-color: #37322e;
+        border-radius: 100%;
+        border: 2px solid #e5bb81;
+        display: inline-grid;
+        grid-template-columns: repeat(4, 0fr);
+        grid-template-rows: repeat(4, 0fr);
+        gap: 10px;
+        justify-content: center;
+        align-content: center;
+        margin: 2%;
+    }
+    .circle {
+        width: 30px;
+        height: 30px;
+        border: 2px solid #e5bb81;
+        border-radius: 100%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /*FOR DRAG AND DROP*/
+    .cursorPointer {
+        cursor: grabbing;
+    }
+    .draggedOver {
+        border: 25px dotted #e5bb81;
+    }
+    .draggedOverNextStoneField {
+        box-shadow: 0px 0px 0px 2px #e5bb81;
+        transition: box-shadow 0.2s;
+    }
+    .quartoGreen {
+        border: 2px solid #c065c0;
+    }
+}
+@media (min-width: 1000px) {
+    #switch {
+        position: relative;
+        display: inline-block;
+        width: 55px;
+        height: 21px;
+    }
+
+    #switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 15px;
+        width: 15px;
+        left: 4px;
+        bottom: 3px;
+        background-color: #1a1a1a;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #1DD7EE;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(31px);
+        -ms-transform: translateX(31px);
+        transform: translateX(31px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 17px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+    #aiWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        z-index: 10;
+        position: absolute;
+        top: 10px;
+        right: 0;
+        margin-right: 2vw;
+    }
+
+    #aiButton {
+        background-color: transparent;
+        width: 200px;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 400;
+        font-size: 20px;
+        border: none;
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+    body {
+        width: 100vw;
+        height: 100vh;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #1a1a1a;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    #gameWrapper {
+        width: 100vw;
+        height: 100vh;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+    }
+    #quartoButton {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 400;
+        font-size: 40px;
+        background-color: #1a1a1a;
+        border: none;
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+    #startButton {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        background-color: green;
+        border: none;
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+    }
+    #endButton {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        background-color: #37322e;
+        border: none;
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+    }
+    #footer {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 300;
+        font-size: 20px;
+        background-color: #1a1a1a;
+        border: none;
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+    #stoneField {
+        transform: rotate(-45deg);
+        width: 250px;
+        height: 250px;
+        background-color: #37322e;
+        border-radius: 100%;
+        display: inline-grid;
+        grid-template-columns: repeat(4, 0fr);
+        grid-template-rows: repeat(4, 0fr);
+        gap: 15px;
+        justify-content: center;
+        align-content: center;
+        margin: 2%;
+    }
+    .stone {
+        width: 30px;
+        height: 30px;
+        transform: rotate(45deg);
+    }
+    #nextStoneField {
+        transform: rotate(-45deg);
+        background-color: #37322e;
+        width: 50px;
+        height: 50px;
+
+        border-radius: 100%;
+        margin: 2%;
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #playField {
+        transform: rotate(-45deg);
+        width: 325px;
+        height: 325px;
+        background-color: #37322e;
+        border-radius: 100%;
+        border: 3px solid #e5bb81;
+        display: inline-grid;
+        grid-template-columns: repeat(4, 0fr);
+        grid-template-rows: repeat(4, 0fr);
+        gap: 5px;
+        justify-content: center;
+        align-content: center;
+        margin: 2%;
+    }
+    .circle {
+        width: 50px;
+        height: 50px;
+        border: 3px solid #e5bb81;
+        border-radius: 100%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /*FOR DRAG AND DROP*/
+    .cursorPointer {
+        cursor: grabbing;
+    }
+    .draggedOver {
+        border: 3px dotted #e5bb81;
+    }
+    .draggedOverNextStoneField {
+        box-shadow: 0px 0px 0px 3px #e5bb81;
+        transition: box-shadow 0.2s;
+    }
+    .quartoGreen {
+        border: 3px solid #c065c0;
+    }
+}
+@media (min-width: 1700px) {
+    #switch {
+        position: relative;
+        display: inline-block;
+        width: 55px;
+        height: 21px;
+    }
+
+    #switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 15px;
+        width: 15px;
+        left: 4px;
+        bottom: 3px;
+        background-color: #1a1a1a;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #1DD7EE;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(31px);
+        -ms-transform: translateX(31px);
+        transform: translateX(31px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 17px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+    #aiWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        z-index: 10;
+        position: absolute;
+        top: 10px;
+        right: 0;
+        margin-right: 2vw;
+    }
+
+    #aiButton {
+        background-color: transparent;
+        width: 200px;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 400;
+        font-size: 20px;
+        border: none;
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+    body {
+        width: 100vw;
+        height: 100vh;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #1a1a1a;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    #gameWrapper {
+        width: 100vw;
+        height: 100vh;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+    }
+    #quartoButton {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 400;
+        font-size: 40px;
+        background-color: #1a1a1a;
+        border: none;
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+    #startButton {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        background-color: green;
+        border: none;
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+    }
+    #endButton {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        background-color: #37322e;
+        border: none;
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+    }
+    #footer {
+        width: 100vw;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 300;
+        font-size: 20px;
+        background-color: #1a1a1a;
+        border: none;
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+    #stoneField {
+        transform: rotate(-45deg);
+        width: 500px;
+        height: 500px;
+        background-color: #37322e;
+        border-radius: 100%;
+        display: inline-grid;
+        grid-template-columns: repeat(4, 0fr);
+        grid-template-rows: repeat(4, 0fr);
+        gap: 30px;
+        justify-content: center;
+        align-content: center;
+        margin: 2%;
+    }
+    .stone {
+        width: 60px;
+        height: 60px;
+        transform: rotate(45deg);
+    }
+    #nextStoneField {
+        transform: rotate(-45deg);
+        background-color: #37322e;
+        width: 100px;
+        height: 100px;
+
+        border-radius: 100%;
+        margin: 2%;
+
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #playField {
+        transform: rotate(-45deg);
+        width: 650px;
+        height: 650px;
+        background-color: #37322e;
+        border-radius: 100%;
+        border: 5px solid #e5bb81;
+        display: inline-grid;
+        grid-template-columns: repeat(4, 0fr);
+        grid-template-rows: repeat(4, 0fr);
+        gap: 10px;
+        justify-content: center;
+        align-content: center;
+        margin: 2%;
+    }
+    .circle {
+        width: 100px;
+        height: 100px;
+        border: 5px solid #e5bb81;
+        border-radius: 100%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /*FOR DRAG AND DROP*/
+    .cursorPointer {
+        cursor: grabbing;
+    }
+    .draggedOver {
+        border: 5px dotted #e5bb81;
+    }
+    .draggedOverNextStoneField {
+        box-shadow: 0px 0px 0px 5px #e5bb81;
+        transition: box-shadow 0.2s;
+    }
+    .quartoGreen {
+        border: 5px solid #c065c0;
+    }
+}
+
+
+#footer a {
+    color: white;
+    text-decoration: underline;
+}

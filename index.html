@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Quarto Game</title>
+        <link rel="icon" type="image/x-icon" href="img/fav.png">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+        <button id="quartoButton">Quarto!</button>
+
+        <div id="aiWrapper">
+
+            <button id="aiButton" title="Activating the artificial intelligence will make the computer play better!">A.I. deactivated</button>
+
+            <label id="switch">
+                <input id ="checkMe" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+
+        </div>
+
+        <button id="startButton">▶</button>
+
+        <div id="gameWrapper">
+
+            <div id="stoneField">
+
+                <img class="stone" id="stone1" src="img/1cbn.png">
+                <img class="stone" id="stone2" src="img/1cbh.png">
+                <img class="stone" id="stone3" src="img/1csn.png">
+                <img class="stone" id="stone4" src="img/1csh.png">
+
+                <img class="stone" id="stone5" src="img/1rbn.png">
+                <img class="stone" id="stone6" src="img/1rbh.png">
+                <img class="stone" id="stone7" src="img/1rsn.png">
+                <img class="stone" id="stone8" src="img/1rsh.png">
+
+                <img class="stone" id="stone9"  src="img/2cbn.png">
+                <img class="stone" id="stone10" src="img/2cbh.png">
+                <img class="stone" id="stone11" src="img/2csn.png">
+                <img class="stone" id="stone12" src="img/2csh.png">
+
+                <img class="stone" id="stone13" src="img/2rbn.png">
+                <img class="stone" id="stone14" src="img/2rbh.png">
+                <img class="stone" id="stone15" src="img/2rsn.png">
+                <img class="stone" id="stone16" src="img/2rsh.png">
+
+            </div>
+
+            <div id="nextStoneField"></div>
+
+            <div id="playField">
+
+                <div class="circle" id="circle1"></div>
+                <div class="circle" id="circle2"></div>
+                <div class="circle" id="circle3"></div>
+                <div class="circle" id="circle4"></div>
+
+                <div class="circle" id="circle5"></div>
+                <div class="circle" id="circle6"></div>
+                <div class="circle" id="circle7"></div>
+                <div class="circle" id="circle8"></div>
+
+                <div class="circle" id="circle9"></div>
+                <div class="circle" id="circle10"></div>
+                <div class="circle" id="circle11"></div>
+                <div class="circle" id="circle12"></div>
+
+                <div class="circle" id="circle13"></div>
+                <div class="circle" id="circle14"></div>
+                <div class="circle" id="circle15"></div>
+                <div class="circle" id="circle16"></div>
+
+            </div>
+
+        </div>
+
+        <a href="https://www.youtube.com/watch?v=VMazU6Q-YFY&t=14s" target="_blank" draggable="false"><button id="endButton" draggable="false">Game Tutorial</button></a>
+        <button id="footer">Web application created by <a href="https://www.simonroedig.com/" target="_blank">Simon Roedig</a></button>
+
+        <script type="text/javascript" src="script.js"></script>
+    </body>
+</html>
