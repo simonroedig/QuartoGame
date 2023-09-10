@@ -10,7 +10,7 @@ Check out the game and give it a try:
 
 <div style="display: flex; justify-content: space-between;">
   <img src="snapshot.png" alt="Game Snapshot 1" width="70%">
-  <img src="snapshot2.pngg" alt="Game Snapshot 1" width="30%">
+  <img src="snapshot2.png" alt="Game Snapshot 1" width="30%">
 </div>
 
 -> Play: https://www.simonroedig.com/game%20webpage/quarto/index.html
