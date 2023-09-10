@@ -6,5 +6,6 @@ My implementation allows you to play Quarto against the computer by dragging and
 Check out the game and give it a try:
 
 <img src="snapshot.png" alt="Game Snapshot" width="50%" height="50%">
+<img src="snapshot2.png" alt="Game Snapshot" width="50%" height="50%">
 
 -> Play: https://www.simonroedig.com/game%20webpage/quarto/index.html
