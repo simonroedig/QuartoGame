@@ -6,11 +6,4 @@ My implementation allows you to play Quarto against the computer by dragging and
 Check out the game and give it a try:
 
 <img src="snapshot.png" alt="Game Snapshot" width="60%" height="60%">
-<img src="snapshot2.png" alt="Game Snapshot" width="20%" height="20%">
-
-<div style="display: flex; justify-content: space-between;">
-  <img src="snapshot.png" alt="Game Snapshot 1" width="48%">
-  <img src="snapshot2.png" alt="Game Snapshot 1" width="48%">
-</div>
-
 -> Play: https://www.simonroedig.com/game%20webpage/quarto/index.html
